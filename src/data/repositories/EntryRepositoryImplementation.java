@@ -13,10 +13,8 @@ public class EntryRepositoryImplementation implements EntryRepository{
     public Entry save(Entry entry) {
         if (isNew(entry)) createNew(entry);
         else update(entry);
-
         return entry;
     }
-
     private void createNew(Entry entry) {
         count++;
         entry.setId(generateNewId());

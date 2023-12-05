@@ -14,4 +14,5 @@ public interface DiaryRepository {
     long count();
     void clear();
 
+    Diary findByUsername(String username);
 }

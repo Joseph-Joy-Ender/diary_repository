@@ -5,7 +5,7 @@ public class Diary {
     private int id;
     private String username;
     private String password;
-    private boolean isLocked;
+    private boolean isLocked = true;
 
     public int getId() {
         return id;

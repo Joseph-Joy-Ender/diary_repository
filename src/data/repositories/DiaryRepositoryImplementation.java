@@ -82,7 +82,11 @@ public class DiaryRepositoryImplementation implements DiaryRepository{
     @Override
     public void clear() {
         diaries.clear();
+    }
 
-
+    @Override
+    public Diary findByUsername(String username) {
+        for(Diary diary : diaries) if(diary.getUsername().equalsIgnoreCase(username)) return diary;
+        return null;
     }
 }
