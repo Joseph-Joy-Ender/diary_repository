@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface EntryService {
 
-    void create(String title, String body, int DiaryId);
+    void create(String title, String body, String DiaryId);
     List<Entry> findAll();
 }

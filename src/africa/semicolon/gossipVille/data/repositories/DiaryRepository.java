@@ -1,18 +1,11 @@
 package africa.semicolon.gossipVille.data.repositories;
 
 import africa.semicolon.gossipVille.data.models.Diary;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface DiaryRepository {
-    Diary save(Diary diary);
-    List<Diary> findAll();
-    Diary findById(int id);
-    Diary findByEntryIdAndDiaryId(int entryId, int diaryId);
-    void delete(int id);
-    void delete(Diary diary);
-    long count();
-    void clear();
+public interface DiaryRepository extends MongoRepository<Diary, String> {
+    Diary findDiaryByUsername(String username);
 
-    Diary findByUsername(String username);
 }

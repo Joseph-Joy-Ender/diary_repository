@@ -67,7 +67,7 @@ public class Main {
     private static void register() {
         String name =  input("Enter your name: ");
         String password = input("Enter your password: ");
-        System.out.println(controller.register(name, password));
+//        System.out.println(controller.register(name, password));
         diaryMainMenu();
     }
 
