@@ -1,6 +1,7 @@
 package africa.semicolon.gossipVille;
 
 import africa.semicolon.gossipVille.controllers.DiaryController;
+import africa.semicolon.gossipVille.data.models.Diary;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -1,12 +1,17 @@
 package africa.semicolon.gossipVille.controllers;
 
-import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
+import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
+import africa.semicolon.gossipVille.dtos.responses.ApiResponse;
+import africa.semicolon.gossipVille.dtos.responses.RegisterResponse;
 import africa.semicolon.gossipVille.exceptions.DiaryAppException;
 
 import africa.semicolon.gossipVille.services.DiaryService;
-import africa.semicolon.gossipVille.services.DiaryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.http.HttpResponse;
 
 @RestController
 public class DiaryController {
@@ -14,13 +19,17 @@ public class DiaryController {
     private DiaryService diaryService;
 
     @PostMapping("/register")
-    public String register(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
+        RegisterResponse registerResponse = new RegisterResponse();
+
         try {
-            diaryService.register(loginRequest);
-            return "Account created";
+            diaryService.register(registerRequest);
+            registerResponse.setMessage("Account created successfully");
+            return new ResponseEntity<>(new ApiResponse(true, registerResponse), HttpStatus.CREATED);
         }
         catch (DiaryAppException ex){
-            return ex.getMessage();
+            registerResponse.setMessage(ex.getMessage());
+            return new ResponseEntity<>(new ApiResponse(false, registerResponse), HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/login/{username}/{password}")

@@ -3,7 +3,7 @@ package africa.semicolon.gossipVille.services;
 import africa.semicolon.gossipVille.data.models.Diary;
 import africa.semicolon.gossipVille.data.models.Entry;
 import africa.semicolon.gossipVille.data.repositories.DiaryRepository;
-import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
+import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
 import africa.semicolon.gossipVille.exceptions.InvalidDetailsException;
 import africa.semicolon.gossipVille.exceptions.UserExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static africa.semicolon.gossipVille.utils.Mapper.map;
+
 @Service
 public class DiaryServiceImpl  implements  DiaryService{
     @Autowired
@@ -19,13 +22,12 @@ public class DiaryServiceImpl  implements  DiaryService{
     private EntryService entryService ;
 
     @Override
-    public void register(LoginRequest loginRequest) {
-        if(userExist(loginRequest.getUsername())) throw new UserExistException(loginRequest.getUsername()+ " already exist");
-        Diary newDiary = new Diary();
-        newDiary.setUsername(loginRequest.getUsername());
-        newDiary.setPassword(loginRequest.getPassword());
-        repository.save(newDiary);
+    public void register(RegisterRequest registerRequest) {
+        if(userExist(registerRequest.getUsername())) throw new UserExistException(registerRequest.getUsername()+ " already exist");
+       Diary diary = map(registerRequest);
+        repository.save(diary);
     }
+
     private boolean userExist(String username){
         Diary foundDiary = repository.findDiaryByUsername(username);
         return foundDiary != null;
