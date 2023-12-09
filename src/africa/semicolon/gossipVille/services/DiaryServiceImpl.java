@@ -57,7 +57,7 @@ public class DiaryServiceImpl  implements  DiaryService{
         Diary findDiary = repository.findDiaryByUsername(username);
        List<Entry> entries = new ArrayList<>();
        for (Entry entry: entryService.findAll()){
-           if(entry.getDiaryId() == findDiary.getId()) entries.add(entry);
+           if(entry.getDiaryId().equals( findDiary.getId())) entries.add(entry);
        }
        return entries;
     }

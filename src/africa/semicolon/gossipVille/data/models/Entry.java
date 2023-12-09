@@ -13,7 +13,7 @@ public class Entry {
     private String id;
     private String title;
     private String body;
-    private LocalDateTime localDateTime;
+    private LocalDateTime localDateTime = LocalDateTime.now();
     private String diaryId;
 
 }
