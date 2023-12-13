@@ -36,6 +36,9 @@ public class DiaryController {
     public String login(@PathVariable("username") String username,@PathVariable("password") String password){
         try {
             diaryService.login(username, password);
+
+
+
             return "You don login!!!";
         }
         catch (DiaryAppException ex){
