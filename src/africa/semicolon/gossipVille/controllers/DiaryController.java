@@ -37,6 +37,8 @@ public class DiaryController {
         try {
             diaryService.login(username, password);
             return "You don login!!!";
+
+
         }
         catch (DiaryAppException ex){
             return ex.getMessage();
