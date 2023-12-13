@@ -40,6 +40,8 @@ public class DiaryController {
 
 
             return "You don login!!!";
+
+
         }
         catch (DiaryAppException ex){
             return ex.getMessage();
