@@ -3,6 +3,8 @@ package africa.semicolon.gossipVille.services;
 import africa.semicolon.gossipVille.data.models.Diary;
 import africa.semicolon.gossipVille.data.models.Entry;
 import africa.semicolon.gossipVille.data.repositories.DiaryRepository;
+import africa.semicolon.gossipVille.dtos.requests.EntryRequest;
+import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
 import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
 import africa.semicolon.gossipVille.exceptions.InvalidDetailsException;
 import africa.semicolon.gossipVille.exceptions.UserExistException;
@@ -28,15 +30,16 @@ public class DiaryServiceImpl  implements  DiaryService{
         repository.save(diary);
     }
 
+
     private boolean userExist(String username){
         Diary foundDiary = repository.findDiaryByUsername(username);
         return foundDiary != null;
     }
     @Override
-    public void login(String username, String password) {
-      Diary foundDiary = repository.findDiaryByUsername(username);
-      if(!userExist(username)) throw new InvalidDetailsException();
-      if(!foundDiary.getPassword().equals(password)) throw new InvalidDetailsException();
+    public void login(LoginRequest loginRequest) {
+      Diary foundDiary = repository.findDiaryByUsername(loginRequest.getUsername());
+      if(!userExist(loginRequest.getUsername())) throw new InvalidDetailsException();
+      if(!foundDiary.getPassword().equals(loginRequest.getPassword())) throw new InvalidDetailsException();
       foundDiary.setLocked(false);
       repository.save(foundDiary);
     }
@@ -47,9 +50,9 @@ public class DiaryServiceImpl  implements  DiaryService{
     }
 
     @Override
-    public void writeOn(String username, String title, String body) {
-        Diary findDiary = repository.findDiaryByUsername(username);
-        entryService.create(title, body, findDiary.getId());
+    public void writeOn(EntryRequest entryRequest) {
+        Diary findDiary = repository.findDiaryByUsername(entryRequest.getUsername());
+        entryService.create(entryRequest.getTitle(), entryRequest.getBody(), findDiary.getId());
     }
 
     @Override

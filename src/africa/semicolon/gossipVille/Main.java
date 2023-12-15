@@ -2,6 +2,9 @@ package africa.semicolon.gossipVille;
 
 import africa.semicolon.gossipVille.controllers.DiaryController;
 import africa.semicolon.gossipVille.data.models.Diary;
+import africa.semicolon.gossipVille.dtos.requests.EntryRequest;
+import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
+import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,8 +12,8 @@ import java.util.Scanner;
 
 @SpringBootApplication
 public class Main {
-    private static DiaryController controller = new DiaryController();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final DiaryController controller = new DiaryController();
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
 //        diaryMainMenu();
@@ -51,24 +54,34 @@ public class Main {
     }
 
     private static void writeOn() {
+        EntryRequest entryRequest = new EntryRequest();
         String name =  input("Enter your name: ");
         String title = input("Enter title:");
         String body = input("Enter ya body: ");
-        System.out.println(controller.createEntry(name, title, body));
+        entryRequest.setUsername(name);
+        entryRequest.setBody(body);
+        entryRequest.setTitle(title);
+        System.out.println(controller.createEntry(entryRequest));
         diaryMainMenu();
     }
 
     private static void login() {
+        LoginRequest loginRequest = new LoginRequest();
         String username =  input("Enter your name: ");
         String password = input("Enter your password: ");
-        System.out.println(controller.login(username, password));
+        loginRequest.setUsername(username);
+        loginRequest.setPassword(password);
+        System.out.println(controller.login(loginRequest));
         diaryMainMenu();
     }
 
     private static void register() {
+        RegisterRequest request = new RegisterRequest();
         String name =  input("Enter your name: ");
         String password = input("Enter your password: ");
-//        System.out.println(controller.register(name, password));
+        request.setUsername(name);
+        request.setPassword(password);
+      System.out.println(controller.register(request));
         diaryMainMenu();
     }
 

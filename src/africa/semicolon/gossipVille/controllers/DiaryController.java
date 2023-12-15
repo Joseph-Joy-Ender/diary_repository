@@ -1,7 +1,11 @@
 package africa.semicolon.gossipVille.controllers;
 
+import africa.semicolon.gossipVille.dtos.requests.EntryRequest;
+import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
 import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
 import africa.semicolon.gossipVille.dtos.responses.ApiResponse;
+import africa.semicolon.gossipVille.dtos.responses.EntryResponse;
+import africa.semicolon.gossipVille.dtos.responses.LoginResponse;
 import africa.semicolon.gossipVille.dtos.responses.RegisterResponse;
 import africa.semicolon.gossipVille.exceptions.DiaryAppException;
 
@@ -32,26 +36,33 @@ public class DiaryController {
             return new ResponseEntity<>(new ApiResponse(false, registerResponse), HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/login/{username}/{password}")
-    public String login(@PathVariable("username") String username,@PathVariable("password") String password){
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        LoginResponse loginResponse = new LoginResponse();
         try {
-            diaryService.login(username, password);
-            return "You don login!!!";
-
-
+            diaryService.login(loginRequest);
+            loginResponse.setMessage("You don login!!!");
+            return new ResponseEntity<>(new ApiResponse(true, loginResponse), HttpStatus.OK);
         }
         catch (DiaryAppException ex){
-            return ex.getMessage();
+            loginResponse.setMessage(ex.getMessage());
+            return new ResponseEntity<>(new ApiResponse(false, loginResponse), HttpStatus.BAD_REQUEST);
         }
     }
+
+
     @PostMapping("/entry")
-    public String createEntry(@RequestParam("username") String username,@RequestParam("title") String title,@RequestParam("body") String body){
+    public ResponseEntity<?> createEntry(@RequestBody EntryRequest entryRequest){
+        EntryResponse entryResponse = new EntryResponse();
         try {
-            diaryService.writeOn(username,title, body);
-            return "We don write am";
+            diaryService.writeOn(entryRequest);
+            entryResponse.setMessage("We don write am");
+            return new ResponseEntity<>(new ApiResponse(true, entryResponse), HttpStatus.CREATED);
         }
         catch (DiaryAppException ex){
-            return ex.getMessage();
+            entryResponse.setMessage(ex.getMessage());
+            return new ResponseEntity<>(new ApiResponse(false, entryResponse), HttpStatus.BAD_REQUEST);
         }
 
     }
