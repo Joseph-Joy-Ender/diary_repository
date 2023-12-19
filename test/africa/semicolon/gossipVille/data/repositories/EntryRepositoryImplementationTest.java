@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class EntryRepositoryImplementationTest {
 
     @Autowired
-
     private EntryRepository entryRepository;
 
     @Test
