@@ -75,4 +75,5 @@ public class DiaryController {
             return ex.getMessage();
         }
     }
+
 }
