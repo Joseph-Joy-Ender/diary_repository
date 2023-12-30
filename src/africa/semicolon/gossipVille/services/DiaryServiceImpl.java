@@ -8,7 +8,7 @@ import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
 import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
 import africa.semicolon.gossipVille.exceptions.InvalidDetailsException;
 import africa.semicolon.gossipVille.exceptions.UserExistException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,11 +17,10 @@ import java.util.List;
 import static africa.semicolon.gossipVille.utils.Mapper.map;
 
 @Service
+@AllArgsConstructor
 public class DiaryServiceImpl  implements  DiaryService{
-    @Autowired
-    private DiaryRepository repository ;
-    @Autowired
-    private EntryService entryService ;
+    private final DiaryRepository repository ;
+    private final EntryService entryService ;
 
     @Override
     public void register(RegisterRequest registerRequest) {

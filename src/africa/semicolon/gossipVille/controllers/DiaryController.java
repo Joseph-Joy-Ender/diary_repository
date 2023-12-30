@@ -8,19 +8,16 @@ import africa.semicolon.gossipVille.dtos.responses.EntryResponse;
 import africa.semicolon.gossipVille.dtos.responses.LoginResponse;
 import africa.semicolon.gossipVille.dtos.responses.RegisterResponse;
 import africa.semicolon.gossipVille.exceptions.DiaryAppException;
-
 import africa.semicolon.gossipVille.services.DiaryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
+@AllArgsConstructor
 public class DiaryController {
-    @Autowired
-    private DiaryService diaryService;
+    private final DiaryService diaryService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
