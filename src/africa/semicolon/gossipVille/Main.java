@@ -5,6 +5,7 @@ import africa.semicolon.gossipVille.data.models.Diary;
 import africa.semicolon.gossipVille.dtos.requests.EntryRequest;
 import africa.semicolon.gossipVille.dtos.requests.LoginRequest;
 import africa.semicolon.gossipVille.dtos.requests.RegisterRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,7 +17,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-//        diaryMainMenu();
+        diaryMainMenu();
     }
 
     private static void diaryMainMenu() {

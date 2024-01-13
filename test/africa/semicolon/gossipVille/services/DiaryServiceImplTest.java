@@ -104,7 +104,7 @@ class DiaryServiceImplTest {
     }
 
     @Test
-    public void registerUser_loginWithRightDetails_create_two_entry_viewAllEntrySizeIsTwoTest(){
+    public void registerUser_loginWithRightDetails_createTwoEntry_viewAllEntrySizeIsTwoTest(){
         RegisterRequest request = new RegisterRequest();
         LoginRequest loginRequest = new LoginRequest();
         EntryRequest entryRequest = new EntryRequest();
@@ -121,7 +121,11 @@ class DiaryServiceImplTest {
         entryRequest.setBody("body");
         entryRequest.setUsername("philip");
         diaryService.writeOn(entryRequest);
+        entryRequest.setTitle("Title2");
+        entryRequest.setUsername("philip");
+        entryRequest.setBody("Lollll");
         diaryService.writeOn(entryRequest);
+        System.out.println(diaryService.findEntriesBelongingTo("philip"));
 
         assertEquals(2, diaryService.findEntriesBelongingTo("philip").size());
         assertThat(diaryService.findEntriesBelongingTo("philip").size(), is(2));
