@@ -34,6 +34,7 @@ public class DiaryServiceImpl  implements  DiaryService{
         Diary foundDiary = repository.findDiaryByUsername(username);
         return foundDiary != null;
     }
+    
     @Override
     public void login(LoginRequest loginRequest) {
       Diary foundDiary = repository.findDiaryByUsername(loginRequest.getUsername());
